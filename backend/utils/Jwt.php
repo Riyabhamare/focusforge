@@ -8,8 +8,15 @@ class Jwt {
     private static string $secret = 'focusforge-super-secret-jwt-key-2026';
 
     public static function getSecret(): string {
-        return getenv('JWT_SECRET') ?: self::$secret;
+    $secret = getenv('JWT_SECRET');
+    if ($secret) {
+        return $secret;
     }
+    if (getenv('APP_ENV') === 'production') {
+        throw new RuntimeException('JWT_SECRET must be set in production.');
+    }
+    return self::$secret; // local development fallback only
+}
 
     private static function base64UrlEncode(string $data): string {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
