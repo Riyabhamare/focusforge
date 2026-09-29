@@ -1,0 +1,12 @@
+# Node (any folder)
+node_modules/
+dist/
+
+# Secrets / local config
+.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
